@@ -17,9 +17,9 @@ Time reset
 
 ----------------------------------------------------------------------------------------------------
 FUTURE PLANS:
--implement ability for user to set own watchlist sites
--implement options to adjust timer threshold, regen, reset rules
--make censor page have more features/ be possibly interactive?
+- implement ability for user to set own watchlist sites
+- implement options to adjust timer threshold, regen, reset rules
+- make censor page more aesthetically appealing, possible interactive
 
 ----------------------------------------------------------------------------------------------------
 Made with Javascript, HTML/CSS, Google Chrome APIs (tabs, messaging, notifications)
