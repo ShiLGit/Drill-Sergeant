@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Covered+By+Your+Grace');
+
+body {
+  width: 384px;
+  height: 180px;
+  background-color:#e8d8a9;
+}
+header{
+  color: #261802;
+  text-align: center;
+  margin-top: 0px;
+  font-family: Permanent Marker;
+  font-size: 16px;
+}
+
+#timer{
+font-size: 60px;
+margin: : 50px;
+display:inline-block;
+position:absolute;
+text-align: center;
+top: 90px;
+bottom: 20px;
+right: 30px;
+
+transition: all 0.5s ease;
+}
+
+#infotext
+{
+    font-size: 13px;
+    text-align: center;
+}
+#dialogue{
+  font-family: Covered By Your Grace;
+  font-size: 20px;
+  color: #473e2d;
+  display:inline-block;
+  position: relative;
+  bottom: 180px;
+  left: 100px;
+  margin: 20px;
+}
+
+#timer:hover{
+    color: #c10b0b;
+    cursor: grab;
+}
