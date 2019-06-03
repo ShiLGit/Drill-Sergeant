@@ -3,6 +3,7 @@ Regulates amount of time user spends on unproductive ("watchlist") websites; blo
 
 ---------------------------------------------------------------------------------------------------
 FEATURES:
+
 Timer
 - counts down time until website-blocking is activated
 - starts when user navigates to a watchlist site and regenerates when user is not on a watchlist site
