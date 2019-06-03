@@ -1,6 +1,7 @@
 # DrillSerg_ChromeExtension
 Regulates amount of time user spends on unproductive ("watchlist") websites; blocks them if time threshold (currently 45m) is reached 
 
+---------------------------------------------------------------------------------------------------
 FEATURES:
 Timer
 - counts down time until website-blocking is activated
