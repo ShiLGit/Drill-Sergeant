@@ -1,47 +1,44 @@
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
-@import url('https://fonts.googleapis.com/css?family=Covered+By+Your+Grace');
+@import url('https://fonts.googleapis.com/css?family=Khand|Special+Elite|Stardos+Stencil&display=swap');
 
 body {
   width: 384px;
-  height: 180px;
+  height: 300px;
   background-color:#e8d8a9;
 }
 header{
   color: #261802;
   text-align: center;
   margin-top: 0px;
-  font-family: Permanent Marker;
+  font-family: Special Elite;
   font-size: 16px;
 }
 
 #timer{
-font-size: 60px;
-margin: : 50px;
-display:inline-block;
-position:absolute;
-text-align: center;
-top: 90px;
-bottom: 20px;
-right: 30px;
-
+font-family: Stardos Stencil;
+font-size: 40px;
 transition: all 0.5s ease;
 }
 
-#infotext
-{
-    font-size: 13px;
-    text-align: center;
-}
 #dialogue{
-  font-family: Covered By Your Grace;
+  font-family: Khand;
   font-size: 20px;
   color: #473e2d;
-  display:inline-block;
-  position: relative;
-  bottom: 180px;
-  left: 100px;
-  margin: 20px;
 }
+
+.bodytext{
+  display: inline-block;
+  position: absolute;
+  bottom: 80px;
+  left: 150px;
+}
+.infotext
+{
+    font-size: 13px;
+    font-family: Special Elite;
+    text-align: center;
+}
+
+
 
 #timer:hover{
     color: #c10b0b;
