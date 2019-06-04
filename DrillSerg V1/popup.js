@@ -2,6 +2,7 @@
 {
   var timer;
 
+  var timerEle = document.getElementById("timer");
   var min, sec, timeLeft;
   var minStr, secStr;
 
@@ -18,7 +19,7 @@
       timeLeft = 0;
     }
     formatStrings();
-    document.getElementById("timer").innerHTML = minStr + ":" + secStr;
+    timerEle.innerHTML = minStr + ":" + secStr;
   }
 
   function formatStrings()
@@ -59,6 +60,9 @@
     //change timer text
     if(request.countingdown == true)
     {
+        timerEle.style.position = "relative";
+        timerEle.style.left = "40px";
+        timerEle.style.bottom = "10px";
         timer = setInterval(countDown, 1000);
     }
     else //change info text
