@@ -16,6 +16,9 @@ Time reset
 - tracks time until timer resets
 - timer completely resets to 45m if user has stayed away from a watchlist site for >= 4 hours straight
 
+Configuration
+- allows user to set own watchlist sites
+
 ----------------------------------------------------------------------------------------------------
 FUTURE PLANS:
 - implement ability for user to set own watchlist sites (DONE)
