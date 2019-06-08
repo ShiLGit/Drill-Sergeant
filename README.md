@@ -18,7 +18,7 @@ Time reset
 
 ----------------------------------------------------------------------------------------------------
 FUTURE PLANS:
-- implement ability for user to set own watchlist sites
+- implement ability for user to set own watchlist sites (DONE)
 - implement options to adjust timer threshold, regen, reset rules
 - make censor page more aesthetically appealing, possible interactive
 
