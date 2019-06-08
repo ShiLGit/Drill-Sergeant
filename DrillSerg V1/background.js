@@ -4,9 +4,12 @@
 
 //URL watchlist
 var watchList = new Array();
-watchList[0] = "www.youtube";
-watchList[1] = "www.facebook";
-var numWatch = 2;
+watchList[0] = "www.youtube.com";
+watchList[1] = "www.facebook.com";
+watchList[2] = "";
+watchList[3] = "";
+watchList[4] = "";
+var numWatch = 4;
 
 //time tracking
 var lastStop = -1;
@@ -19,6 +22,7 @@ var timerOn = false;
 var timeOut = 45*60; //DUMMY VARIABLE - SET ALL TIMECOUNT.DURATION TO THIS WHEN MODIFIERS ARE ADDED
 var timeCount =
 {
+  type: "time",
   duration: timeOut,
   refresh: 3600*4,
   countingdown: true
@@ -35,7 +39,8 @@ function countDown()
 //censor set up
 var censorAll = false; /* use in tabUpdated (checkTab: if WL == true then block instead of starting timer)
 for when user tries to bypass punishment by navigating to WL site from different tab*/
-var censorTime = 60*10;
+var censorMax = 60*10;
+var censorTime = censorMax;
 var censorTimer;
 var warningNotif =
 {
@@ -52,8 +57,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab)
       checkTabs();
 });
 
-chrome.runtime.onMessage.addListener(function()
+chrome.runtime.onMessage.addListener(function(msg)
 {
+  if(msg.type == "NEED TIME")
+  {
     if(timerOn == false)
     {
       timeCount.countingdown = false;
@@ -64,6 +71,22 @@ chrome.runtime.onMessage.addListener(function()
     }
     calcTimer();
     chrome.runtime.sendMessage(timeCount);
+  }
+  else if(msg.type == "NEED WATCHLIST")
+  {
+    let wl = {
+      type: "watchlist",
+      wl: watchList
+    }
+    chrome.runtime.sendMessage(wl);
+  }
+  else if(msg.type == "new-watchlist")
+  {
+    for(let i = 0; i < numWatch; i++)
+    {
+      watchList[i] = msg.wl[i];
+    }
+  }
 });
 
 //check if watchlist site is still open on tab close>>decide whether or not to pause timer
@@ -112,7 +135,7 @@ function checkTabs() {
 
       if(newStop == true)//set lastStop; avoids setting lastStop every time a tab gets updated (rather than when naviagating away from WL)
       {
-        alert("last stop.");
+        //alert("last stop.");
         lastStop = new Date()/1000;
         newStop = false; //disallows change of lastStop: "the last tab update wasn't a WL closer; keep last lastStop value!!!!!!"
       }
@@ -179,7 +202,7 @@ function censorTabs()
       {
         alert("censor cleared.");
         censorAll = false;
-        censorTime = 15;
+        censorTime = censorMax;
         clearInterval(censorTimer);
       }
     }, 1000);
