@@ -104,7 +104,7 @@ function checkTabs() {
         for(var i = 0; i < numWatch; i++)
         {
           //watchlist site is still open; proceed counting down
-          if(tab.url.indexOf(watchList[i]) != -1)
+          if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "") 
           {
             if(censorAll == true)
             {
