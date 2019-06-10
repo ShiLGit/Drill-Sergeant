@@ -80,6 +80,10 @@ chrome.runtime.onMessage.addListener(
           document.getElementById("info-reset").innerHTML = "Timer resets in  ~" + Math.floor(msg.refresh/3600)+"h, " + Math.floor(msg.refresh/60)%60 + "min";
         }
 
+        if(min < 0)
+        {
+          min = 0;
+        }
         document.getElementById("info-recharge").innerHTML = "Time recharged: ~" + min + " min";
       }
   }
