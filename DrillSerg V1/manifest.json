@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
   "name": "Drill Sergeant",
+  "icons": {"128": "images/icon128.png"},
   "description": "Regulates time spent on Facebook and YouTube",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "browser_action": {"default_popup": "popup.html", "default_icon": "images/icon128.png"  },
   "background": {"scripts": ["background.js"]},
-  "permissions": ["activeTab", "webNavigation", "notifications", "tabs", "background", "webRequest"],
+  "permissions": ["activeTab", "webNavigation", "notifications", "tabs", "background"],
   "web_accessible_resources": ["censor.html"]
 }
