@@ -13,6 +13,7 @@ var numWatch = 4;
 
 //time tracking
 var lastStop = -1;
+var addStop = -1;
 var newTime;
 var newStop = false;
 
@@ -27,6 +28,8 @@ var timeCount =
   refresh: 3600*4,
   countingdown: true
 }
+var refreshModifier = 10;
+
 function countDown()
 {
     timeCount.duration--;
@@ -37,9 +40,8 @@ function countDown()
 }
 
 //censor set up
-var censorAll = false; /* use in tabUpdated (checkTab: if WL == true then block instead of starting timer)
-for when user tries to bypass punishment by navigating to WL site from different tab*/
-var censorMax = 60*10;
+var censorAll = false; // use in tabUpdated (checkTab: if WL == true then block instead of starting timer) for when user tries to bypass punishment by navigating to WL site from different tab
+var censorMax = 10*6;
 var censorTime = censorMax;
 var censorTimer;
 var warningNotif =
@@ -104,14 +106,14 @@ function checkTabs() {
         for(var i = 0; i < numWatch; i++)
         {
           //watchlist site is still open; proceed counting down
-          if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "") 
+          if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "")
           {
             if(censorAll == true)
             {
               censorTabs();
               continue;
             }
-            calcTimer();
+      //      calcTimer();
             stop = false;
 
             if(timerOn == false)//avoid calling >1 timer at once
@@ -137,6 +139,7 @@ function checkTabs() {
       {
         //alert("last stop.");
         lastStop = new Date()/1000;
+        addStop = lastStop;
         newStop = false; //disallows change of lastStop: "the last tab update wasn't a WL closer; keep last lastStop value!!!!!!"
       }
     }
@@ -150,29 +153,37 @@ function calcTimer()
   if(timerOn == false)
   {
     newTime = new Date()/1000;
+  //  alert(newTime + " - " + lastStop + " = " + (newTime - lastStop) );
     if ((newTime - lastStop)/3600 >4 && lastStop != -1)
     {
       timeCount.duration = timeOut;
     }
-    else if(newTime - lastStop <= timeOut && lastStop != -1)
+    else if(lastStop != -1)
     {
-      if(timeCount.duration + Math.floor((newTime - lastStop) / 10) >= timeOut)
+      if(timeCount.duration + Math.floor((newTime - addStop) /refreshModifier) >= timeOut)
       {
         timeCount.duration = timeOut;
       }
       else
       {
-        timeCount.duration += Math.floor((newTime - lastStop) / 10);
+        timeCount.duration += Math.floor((newTime - addStop) /refreshModifier);
+        addStop = newTime;
       }
     }
 
+//    alert(timeCount.duration);
     timeCount.refresh = 3600*4 - (newTime - lastStop);
+    if(timeCount.refresh < 0)
+    {
+      timeCount.refresh = 0;
+    }
   }
 }
 
 //find all watchlist tabs and tell contentscript to censor them
 function censorTabs()
 {
+  console.log("censorTabs called.");
   chrome.windows.getAll({populate:true},
     function(windows)
     {
@@ -180,12 +191,12 @@ function censorTabs()
       {
         window.tabs.forEach(function(tab)
         {
-          for(var i = 0; i < numWatch; i++)
+          for(let i = 0; i < numWatch; i++)
           {
             //navigate or censor this tab THAT HAS THE SUUUUUUUUUUUUUAAUAUGHGHHGH
-            if(tab.url.indexOf(watchList[i]) != -1)
+            if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "")
             {
-                var updateTo = "censor.html";
+                let updateTo = "censor.html";
                 chrome.tabs.update(tab.id, {url: updateTo});
                 censorAll = true;
             }
@@ -200,7 +211,7 @@ function censorTabs()
       censorTime--;
       if(censorTime <= 0)
       {
-        alert("censor cleared.");
+        alert("Censor cleared.");
         censorAll = false;
         censorTime = censorMax;
         clearInterval(censorTimer);
