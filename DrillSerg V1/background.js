@@ -41,7 +41,7 @@ function countDown()
 
 //censor set up
 var censorAll = false; // use in tabUpdated (checkTab: if WL == true then block instead of starting timer) for when user tries to bypass punishment by navigating to WL site from different tab
-var censorMax = 10*6;
+var censorMax = 10*60;
 var censorTime = censorMax;
 var censorTimer;
 var warningNotif =
@@ -96,14 +96,14 @@ chrome.tabs.onRemoved.addListener(checkTabs);
 
 //check all tabs for watchlist site; start timer if watchlist site is open, sets flag for timer recharge if necessary
 function checkTabs() {
-  var stop = true;
+  let stop = true;
   chrome.windows.getAll({populate:true},function(windows)
   {
     windows.forEach(function(window)//not async
     {
       window.tabs.forEach(function(tab)
       {
-        for(var i = 0; i < numWatch; i++)
+        for(let i = 0; i < numWatch; i++)
         {
           //watchlist site is still open; proceed counting down
           if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "")
@@ -166,8 +166,17 @@ function calcTimer()
       }
       else
       {
-        timeCount.duration += Math.floor((newTime - addStop) /refreshModifier);
-        addStop = newTime;
+        if (timeCount.duration <= 0)
+        {
+          timeCount.duration = 0;
+          censorAll = true;
+          censorTabs();
+        }
+        else
+        {
+          timeCount.duration += Math.floor((newTime - addStop) /refreshModifier);
+          addStop = newTime;
+        }
       }
     }
 
