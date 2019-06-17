@@ -12,15 +12,15 @@ watchList[4] = "";
 var numWatch = 4;
 
 //time tracking
-var lastStop = -1;
-var addStop = -1;
+var closeTime = -1; //last time you were on a WL: FOR REFRESH TRACkING
+var lastCheck = -1; // last time you checked time left: FOR RECHARGE TRACKING
 var newTime;
 var newStop = false;
 
 //timer setup
 var timer;
 var timerOn = false;
-var timeOut = 45*60; //DUMMY VARIABLE - SET ALL TIMECOUNT.DURATION TO THIS WHEN MODIFIERS ARE ADDED
+var timeOut = 60*45; //DUMMY VARIABLE - SET ALL TIMECOUNT.DURATION TO THIS WHEN MODIFIERS ARE ADDED
 var timeCount =
 {
   type: "time",
@@ -41,7 +41,8 @@ function countDown()
 
 //censor set up
 var censorAll = false; // use in tabUpdated (checkTab: if WL == true then block instead of starting timer) for when user tries to bypass punishment by navigating to WL site from different tab
-var censorMax = 10*60;
+var censorMax = 10 * 60;
+var censorTimerActive = false;
 var censorTime = censorMax;
 var censorTimer;
 var warningNotif =
@@ -113,7 +114,7 @@ function checkTabs() {
               censorTabs();
               continue;
             }
-      //      calcTimer();
+            calcTimer();
             stop = false;
 
             if(timerOn == false)//avoid calling >1 timer at once
@@ -135,12 +136,11 @@ function checkTabs() {
       clearInterval(timer);
       timerOn = false;
 
-      if(newStop == true)//set lastStop; avoids setting lastStop every time a tab gets updated (rather than when naviagating away from WL)
+      if(newStop == true)//set closeTime; avoids setting closeTime every time a tab gets updated (rather than when naviagating away from WL)
       {
-        //alert("last stop.");
-        lastStop = new Date()/1000;
-        addStop = lastStop;
-        newStop = false; //disallows change of lastStop: "the last tab update wasn't a WL closer; keep last lastStop value!!!!!!"
+        closeTime = new Date()/1000;
+        lastCheck = closeTime;
+        newStop = false; //disallows change of closeTime: "the last tab update wasn't a WL closer; keep last closeTime value!!!!!!"
       }
     }
 
@@ -153,35 +153,37 @@ function calcTimer()
   if(timerOn == false)
   {
     newTime = new Date()/1000;
-  //  alert(newTime + " - " + lastStop + " = " + (newTime - lastStop) );
-    if ((newTime - lastStop)/3600 >4 && lastStop != -1)
+
+    if ((newTime - closeTime)/3600 >4 && closeTime != -1)
     {
       timeCount.duration = timeOut;
     }
-    else if(lastStop != -1)
+    else
     {
-      if(timeCount.duration + Math.floor((newTime - addStop) /refreshModifier) >= timeOut)
+      if(timeCount.duration + Math.floor((newTime - lastCheck) /refreshModifier) >= timeOut) //prevent timer recharge from being > max duration
       {
         timeCount.duration = timeOut;
       }
       else
       {
-        if (timeCount.duration <= 0)
+        if (timeCount.duration < 0)
         {
           timeCount.duration = 0;
+          closeTime = new Date()/1000;
+          lastCheck = closeTime;
           censorAll = true;
           censorTabs();
         }
         else
         {
-          timeCount.duration += Math.floor((newTime - addStop) /refreshModifier);
-          addStop = newTime;
+          timeCount.duration += Math.floor((newTime - lastCheck) /refreshModifier);
+          lastCheck = newTime;
         }
       }
     }
 
 //    alert(timeCount.duration);
-    timeCount.refresh = 3600*4 - (newTime - lastStop);
+    timeCount.refresh = 3600*4 - (newTime - closeTime);
     if(timeCount.refresh < 0)
     {
       timeCount.refresh = 0;
@@ -215,17 +217,22 @@ function censorTabs()
     });
 
     //set timer to turn off censor
-    censorTimer = setInterval(function()
+    if(censorTimerActive == false)
     {
-      censorTime--;
-      if(censorTime <= 0)
+      censorTimerActive = true;
+      censorTimer = setInterval(function()
       {
-        alert("Censor cleared.");
-        censorAll = false;
-        censorTime = censorMax;
-        clearInterval(censorTimer);
-      }
-    }, 1000);
+        censorTime--;
+        if(censorTime <= 0)
+        {
+          alert("Censor cleared.");
+          censorAll = false;
+          censorTimerActive= false;
+          censorTime = censorMax;
+          clearInterval(censorTimer);
+        }
+      }, 1000);
+  }
 }
 
 })();
