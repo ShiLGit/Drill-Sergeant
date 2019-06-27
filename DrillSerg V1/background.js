@@ -3,7 +3,7 @@
 {
 
 //URL watchlist
-var watchList = new Array();
+var watchList = [];
 watchList[0] = "www.youtube.com";
 watchList[1] = "www.facebook.com";
 watchList[2] = "";
