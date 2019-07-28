@@ -24,4 +24,4 @@ FUTURE PLANS:
 - make censor page more aesthetically appealing, possibly interactive
 
 ----------------------------------------------------------------------------------------------------
-Made with Javascript, HTML/CSS, Google Chrome APIs (tabs, messaging, notifications)
+Made with Javascript, HTML/CSS, Google Chrome API
