@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Khand|Special+Elite|Stardos+Stencil&display=swap');
+
+body{
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 20% 65% 15%;
+    width: 450px;
+    font-family:Khand;
+    background-color: #ad9e72;
+    border: 5px dotted black;
+}
+h1{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    font-size: 20px;
+    text-decoration: underline;
+    font-family: Special Elite;
+}
+h3{
+    margin: 2px;
+}
+#watchlist{
+    grid-row-start: 2;
+    grid-row-end:3; 
+    margin: auto;
+}
+#timers{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    padding: 20px;
+}
+
+#timers button{
+    height: 16px;
+    width: 12px;
+    padding: 0px 0px 9px 0px;
+    margin-top: 2px;
+    text-align: center;
+    display: block;
+    background-color: #7a634b;
+    border: 2px solid #3d3022;
+    font-weight: bold;
+    font-family: Khand;
+}
+#timers button:hover{
+    background-color: #3d3022;
+    transition: 0.1s;
+}
+#timers label{
+    margin-top: 7px;
+    display: inline-block;
+}
+#timers .settingName{
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.btnSet{
+    display:inline-block;
+    vertical-align: top;
+}
+input{
+    background-color: #d9c58b;
+    border: 2px solid black;
+    font-family: Khand;
+    margin: 2px;
+}
+#confirm{
+    font-size: 16px;
+    width: 400px;
+    font-family: Khand;
+    background-color: #54734e;
+    border: 2px solid #2f472b;
+
+    margin:auto;
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+#confirm:hover{
+    transition: 0.3s;
+    background-color:#2f472b;
+}
