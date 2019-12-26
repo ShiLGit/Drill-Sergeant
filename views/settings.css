@@ -7,7 +7,7 @@ body{
     width: 450px;
     font-family:Khand;
     background-color: #ad9e72;
-    border: 5px dotted black;
+    border: 5px solid black;
 }
 h1{
     grid-row-start: 1;
@@ -84,4 +84,7 @@ input{
 #confirm:hover{
     transition: 0.3s;
     background-color:#2f472b;
+}
+button{
+    cursor:pointer;
 }

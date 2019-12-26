@@ -104,7 +104,6 @@ document.getElementById("settings").onclick = function()
 {
   window.location.href="/views/settings.html";
 
-  document.getElementById("all").style.height = "500px";
   document.getElementById("config").style.display = "block";
   document.getElementsByClassName("bodytext")[0].style.bottom = "280px";
 

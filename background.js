@@ -2,14 +2,12 @@
 (function() //IIFE
 {
 
-//URL watchlist
-let watchList = [];
-watchList[0] = "youtube.com";
-watchList[1] = "facebook.com";
-watchList[2] = "";
-watchList[3] = "";
-watchList[4] = "";
-let numWatch = 4;
+let settings = {
+  wl: ["youtube.com", "facebook.com", "", "", ""],
+  censorMax: 60*60,
+  timeOut: 60*45,
+  refreshModifier: 10
+}
 
 //time tracking
 let closeTime = -1; //last time you were on a WL: FOR REFRESH TRACkING
@@ -20,15 +18,13 @@ let newStop = false;
 //timer setup
 let timer;
 let timerOn = false;
-let timeOut = 60*45; //DUMMY letIABLE - SET ALL TIMECOUNT.DURATION TO THIS WHEN MODIFIERS ARE ADDED
 let timeCount =
 {
   type: "time",
-  duration: timeOut,
+  duration: settings.timeOut,
   refresh: 3600*4,
   countingdown: true
 }
-let refreshModifier = 10;
 
 function countDown()
 {
@@ -41,9 +37,8 @@ function countDown()
 
 //censor set up
 let censorAll = false; // use in tabUpdated (checkTab: if WL == true then block instead of starting timer) for when user tries to bypass punishment by navigating to WL site from different tab
-let censorMax = 10 * 60;
 let censorTimerActive = false;
-let censorTime = censorMax;
+let censorTime = settings.censorMax;
 let censorTimer;
 let warningNotif =
 {
@@ -79,15 +74,15 @@ chrome.runtime.onMessage.addListener(function(msg)
   {
     let wl = {
       type: "watchlist",
-      wl: watchList
+      wl: settings.wl
     }
     chrome.runtime.sendMessage(wl);
   }
   else if(msg.type == "new-watchlist")
   {
-    for(let i = 0; i < numWatch; i++)
+    for(let i = 0; i < settings.wl.length; i++)
     {
-      watchList[i] = msg.wl[i];
+      settings.wl[i] = msg.wl[i];
     }
   }
 });
@@ -104,10 +99,10 @@ function checkTabs() {
     {
       window.tabs.forEach(function(tab)
       {
-        for(let i = 0; i < numWatch; i++)
+        for(let i = 0; i < settings.wl.length; i++)
         {
           //watchlist site is still open; proceed counting down
-          if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "")
+          if(tab.url.indexOf(settings.wl[i]) != -1 && settings.wl[i] != "")
           {
             if(censorAll == true)
             {
@@ -156,13 +151,13 @@ function calcTimer()
 
     if ((newTime - closeTime)/3600 >4 && closeTime != -1)
     {
-      timeCount.duration = timeOut;
+      timeCount.duration = settings.timeOut;
     }
     else
     {
-      if(timeCount.duration + Math.floor((newTime - lastCheck) /refreshModifier) >= timeOut) //prevent timer recharge from being > max duration
+      if(timeCount.duration + Math.floor((newTime - lastCheck) /settings.refreshModifier) >= settings.timeOut) //prevent timer recharge from being > max duration
       {
-        timeCount.duration = timeOut;
+        timeCount.duration = settings.timeOut;
       }
       else
       {
@@ -176,7 +171,7 @@ function calcTimer()
         }
         else
         {
-          timeCount.duration += Math.floor((newTime - lastCheck) /refreshModifier);
+          timeCount.duration += Math.floor((newTime - lastCheck) /settings.refreshModifier);
           lastCheck = newTime;
         }
       }
@@ -202,10 +197,10 @@ function censorTabs()
       {
         window.tabs.forEach(function(tab)
         {
-          for(let i = 0; i < numWatch; i++)
+          for(let i = 0; i < settings.wl.length; i++)
           {
             //navigate or censor this tab THAT HAS THE SUUUUUUUUUUUUUAAUAUGHGHHGH
-            if(tab.url.indexOf(watchList[i]) != -1 && watchList[i] != "")
+            if(tab.url.indexOf(settings.wl[i]) != -1 && settings.wl[i] != "")
             {
                 let updateTo = "views/censor.html";
                 chrome.tabs.update(tab.id, {url: updateTo});
@@ -228,7 +223,7 @@ function censorTabs()
           alert("Censor cleared.");
           censorAll = false;
           censorTimerActive= false;
-          censorTime = censorMax;
+          censorTime = settings.censorMax;
           clearInterval(censorTimer);
         }
       }, 1000);
