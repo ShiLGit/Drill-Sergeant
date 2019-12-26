@@ -29,7 +29,7 @@ let timeCount =
 function countDown()
 {
     timeCount.duration--;
-    if(timeCount.duration == 0)
+    if(timeCount.duration <= 0)
     {
       censorTabs();
     }
@@ -70,21 +70,18 @@ chrome.runtime.onMessage.addListener(function(msg)
     calcTimer();
     chrome.runtime.sendMessage(timeCount);
   }
-  else if(msg.type == "NEED WATCHLIST")
+  else if(msg.type == "NEED SETTINGS")
   {
-    let wl = {
-      type: "watchlist",
-      wl: settings.wl
-    }
-    chrome.runtime.sendMessage(wl);
+    chrome.runtime.sendMessage({type: 'settings', settings: settings});
   }
-  else if(msg.type == "new-watchlist")
-  {
-    for(let i = 0; i < settings.wl.length; i++)
-    {
-      settings.wl[i] = msg.wl[i];
-    }
+  else if(msg.type == "SETTINGS"){
+    settings = {...msg.settings}
+
+    //update current counters to comply with settings (if necessary)
+    censorTime = Math.min(censorTime, settings.censorMax)
+    timeCount.duration = Math.min(timeCount.duration, settings.timeOut)
   }
+
 });
 
 //check if watchlist site is still open on tab close>>decide whether or not to pause timer
@@ -149,6 +146,7 @@ function calcTimer()
   {
     newTime = new Date()/1000;
 
+    //if last visit to watchlist site was more than 4 hours ago refresh the timeout
     if ((newTime - closeTime)/3600 >4 && closeTime != -1)
     {
       timeCount.duration = settings.timeOut;
