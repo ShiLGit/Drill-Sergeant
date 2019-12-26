@@ -37,14 +37,14 @@
                 <label class = 'settingName'>ⓘ Timeout</label>
                 <div>
                     <span class = 'btnSet'>
-                        <button id = 'Timeout_HPlus'>+</button><button id = 'Timeout_HMinus'>-</button>
+                        <button class = 'plus' data-label = 'Timeout_H'>+</button><button class = 'minus' data-label = 'Timeout_H'>-</button>
                     </span>
-                    <label class = 'value'>3</label><label>h</label>
+                    <label id = 'Timeout_H' data-max = '2' data-min = '0'>3</label><label>h</label>
                          
                     <span class = 'btnSet'>
-                        <button id = 'Timeout_MPlus'>+</button><button id = 'Timeout_MMinus'>-</button>
+                        <button class = 'plus' data-label = 'Timeout_M'>+</button><button id = 'Timeout_MMinus'>-</button>
                     </span>
-                    <label class = 'value'>40</label><label>m</label>
+                    <label id = 'Timeout_M' data-max = '59' data-min = '0'>40</label><label>m</label>
                 </div>
     
     
@@ -53,12 +53,12 @@
                     <span class = 'btnSet'>
                         <button id = 'Censor_HPlus'>+</button><button id = 'Censor_HMinus'>-</button>
                     </span>
-                    <label class>3h</label>
+                    <label id = 'Censor_H'>3</label><label>h</label>
     
                     <span class = 'btnSet'>
                         <button id = 'Censor_MPlus'>+</button><button id = 'Censor_MMinus'>-</button>
                     </span>
-                    <label class>40m</label>
+                    <label id = 'Censor_M'>40</label><label>m</label>
                 </div>
     
                 <div>
@@ -70,6 +70,6 @@
                 </div>
     </span>
     <button id = "confirm">Confirm</button>
-
+    <script src = '../settings.js'></script>
     </body>
 </html>

@@ -4,8 +4,8 @@
 
 //URL watchlist
 let watchList = [];
-watchList[0] = "www.youtube.com";
-watchList[1] = "www.facebook.com";
+watchList[0] = "youtube.com";
+watchList[1] = "facebook.com";
 watchList[2] = "";
 watchList[3] = "";
 watchList[4] = "";
