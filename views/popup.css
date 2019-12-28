@@ -47,13 +47,19 @@ transition: all 0.5s ease;
 }
 
 #settings{
-  background-color: #93c498;
   outline: none;
-  font-family: Khand;
   position: absolute;
   right: 0px;
   top: 0px;
+  cursor: pointer;
+  margin: 17px 30px;
 }
+#settings:hover{
+  transition: 0.3s;
+  border-radius: 100px;
+  background-color: #7a634b;
+}
+
 
 .config{
   display:none;

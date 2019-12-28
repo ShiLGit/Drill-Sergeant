@@ -6,7 +6,9 @@
     const Timeout_H = document.getElementById('Timeout_H')
     const Timeout_M = document.getElementById('Timeout_M')
     const Recharge = document.getElementById('lblRechargeValue')
-    console.log(plusButtons)
+
+
+
     //HELPER FUNCTIONS*****************************************************
     function addWrap(num, max, min){
         if(num + 1 > max){
@@ -85,6 +87,9 @@
         saveSettings()
         alert("Settings saved.")
     }
+    document.getElementById('exit').onclick = ()=>{
+        window.location.href = '/views/popup.html'        
+    }
     for(let i = 0; i < plusButtons.length; i++){
         plusButtons[i].onclick = ()=>{
             const targetID = plusButtons[i].getAttribute('data-label').toString()
@@ -101,9 +106,5 @@
             target.innerHTML = subWrap(parseInt(target.innerHTML), parseInt(target.getAttribute('data-max')), parseInt(target.getAttribute('data-min')))
         }
     }
-    /*
-    document.getElementById('Timeout_HMinus').onclick = ()=>{
-        timeout_h.innerHTML = subWrap(parseInt(timeout_h.innerHTML),2,0)
-    }
-    */
+    
 })()

@@ -103,32 +103,7 @@ chrome.runtime.onMessage.addListener(
 document.getElementById("settings").onclick = function()
 {
   window.location.href="/views/settings.html";
-
-  document.getElementById("config").style.display = "block";
-  document.getElementsByClassName("bodytext")[0].style.bottom = "280px";
-
-  chrome.runtime.sendMessage({type: "NEED WATCHLIST"});
 }
 
-//get caumnnhhtsh
-document.getElementById("confirm").onclick = function()
-{
-  document.getElementById("config").style.display = "none";
-  document.getElementById("all").style.height = "300px";
-  document.getElementsByClassName("bodytext")[0].style.bottom = "80px";
-
-  let newList = new Array();
-  newList[0] = document.getElementById("input1").value;
-  newList[1] = document.getElementById("input2").value;
-  newList[2] = document.getElementById("input3").value;
-  newList[3] = document.getElementById("input4").value;
-  newList[4] = document.getElementById("input5").value;
-
-  let obj = {
-              type: "new-watchlist",
-              wl: newList
-            }
-  chrome.runtime.sendMessage(obj);
-}
 
 })();
