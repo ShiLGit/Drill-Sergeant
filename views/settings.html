@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <header>
     <link rel = 'stylesheet' href = './settings.css'/>
+    <link rel = 'stylesheet' href = './balloon.css'/>
 </header>
 <body>
         <h1>Settings</h1>
@@ -34,6 +35,7 @@
         </span>
     
         <span id = 'timers'>
+                <button class = 'tooltip' aria-label="The maximum amount of time permitted on a watchlist site before censoring." data-balloon-pos="up">i</button>
                 <label class = 'settingName'>Timeout</label>
                 <div>
                     <span class = 'btnSet'>
@@ -48,6 +50,7 @@
                 </div>
     
     
+                <button class = 'tooltip' aria-label="How long watchlist sites are censored for once the 'Timeout' threshold is reached." data-balloon-pos="up">i</button>
                 <label class = 'settingName'>Censor Duration</label>
                 <div>
                     <span class = 'btnSet'>
@@ -62,6 +65,7 @@
                 </div>
     
                 <div>
+                    <button class = 'tooltip' aria-label="The rate at which the Timeout replenishes when away from all watchlist sites." data-balloon-pos="up">i</button>
                     <label class = 'settingName'>Recharge rate:</label>
                     <label>0.</label><label id = 'lblRechargeValue' data-max = '5' data-min ='0'>1</label><label>*Real Time</label>
                     <span class = 'btnSet'>
@@ -70,7 +74,7 @@
                 </div>
     </span>
     <button id = "confirm">Confirm</button>
-    <button id = 'exit'>X</button>
+    <button id = 'exit'>X</button>>
     <script src = '../settings.js'></script>
 
 </body>
