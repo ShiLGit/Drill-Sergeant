@@ -75,6 +75,7 @@ input{
     font-family: Khand;
     font-size: 14px;
     margin: 2px;
+    padding: 5px;
 }
 #confirm{
     font-size: 16px;
@@ -118,6 +119,8 @@ button{
     border: 1px solid black !important;
     border-radius: 300px;
     display: inline-block !important;
-    position: relative;
-    bottom: 3px;
+    vertical-align: center !important;
+    padding: 2px !important;
+    margin-right: 3px;
+    font-family: Stardos Stencil !important;
 }

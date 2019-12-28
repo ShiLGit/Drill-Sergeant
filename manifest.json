@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
   "name": "Drill Sergeant",
-  "icons": {"128": "images/icon128.png"},
+  "icons": {"128": "images/angery_128.png"},
   "description": "Regulates time spent on unproductive sites",
   "version": "1.2.2",
-  "browser_action": {"default_popup": "views/popup.html", "default_icon": "images/icon128.png" },
+  "browser_action": {"default_popup": "views/popup.html", "default_icon": "images/angery_128.png" },
   "background": {"scripts": ["background.js"]},
   "permissions": ["activeTab", "webNavigation", "notifications", "tabs", "background"],
   "web_accessible_resources": ["views/censor.html"]
